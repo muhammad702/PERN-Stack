@@ -10,7 +10,7 @@ const isAdmin = require('../../middleware/isAdmin.js');
 const router = express.Router();
 
 
-router.post("/",isAdmin, photoUpload.single("image"),async (req, res) => {
+router.post("/", photoUpload.single("image"),async (req, res) => {
     try {
 
         if (!req.file) {
@@ -39,7 +39,7 @@ router.post("/",isAdmin, photoUpload.single("image"),async (req, res) => {
 });
 
 
-router.put("/", isAdmin, async (req, res) => {
+router.put("/", async (req, res) => {
     try {
       const { error } = validateTrip(req.body);
       if (error) {
@@ -139,7 +139,7 @@ router.get("/random3", async (req, res) => {
 });
 
 
-router.delete("/trip/:id",isAdmin,async (req, res) => {
+router.delete("/trip/:id",async (req, res) => {
     try {
         await client.query("CALL delete_trip($1);",[req.params.id]);
         res.json({ msg : "done"});
